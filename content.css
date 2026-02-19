@@ -1,0 +1,108 @@
+/* LinkedIn Fraud Detector — injected styles */
+
+.frd-badge {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  border-radius: 8px;
+  margin: 8px 0 12px 0;
+  border: 2px solid;
+  overflow: hidden;
+  animation: frdIn .35s ease;
+}
+
+@keyframes frdIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Level colours */
+.frd-high   { border-color: #d93025; background: #fdf2f2; }
+.frd-medium { border-color: #e8710a; background: #fef7f0; }
+.frd-low    { border-color: #1a7f37; background: #f0faf4; }
+
+.frd-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  cursor: default;
+}
+
+.frd-high   .frd-top { background: #fce8e6; }
+.frd-medium .frd-top { background: #fef0e3; }
+.frd-low    .frd-top { background: #e3f4ea; }
+
+.frd-emoji { font-size: 18px; flex-shrink: 0; }
+
+.frd-label {
+  flex: 1;
+  font-weight: 700;
+  font-size: 13px;
+}
+.frd-high   .frd-label { color: #b31412; }
+.frd-medium .frd-label { color: #a34b00; }
+.frd-low    .frd-label { color: #0d6b2a; }
+
+.frd-pts {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+.frd-high   .frd-pts { background: #d93025; color: #fff; }
+.frd-medium .frd-pts { background: #e8710a; color: #fff; }
+.frd-low    .frd-pts { background: #1a7f37; color: #fff; }
+
+.frd-toggle {
+  background: rgba(0,0,0,.08);
+  border: none;
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 11px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #444;
+  flex-shrink: 0;
+}
+.frd-toggle:hover { background: rgba(0,0,0,.15); }
+
+.frd-body {
+  display: none;
+  padding: 10px 14px 12px;
+  border-top: 1px solid rgba(0,0,0,.08);
+}
+
+.frd-reason {
+  font-size: 12.5px;
+  color: #333;
+  margin-bottom: 4px;
+  line-height: 1.5;
+}
+
+.frd-roles {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.frd-tag {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: rgba(0,0,0,.07);
+  color: #555;
+  border: 1px solid rgba(0,0,0,.1);
+}
+
+.frd-link {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0a66c2;
+  text-decoration: none;
+}
+.frd-link:hover { text-decoration: underline; }

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LinkedIn Fraud Detector</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 380px;
+      min-height: 200px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f3f2ef;
+      color: #1d2226;
+    }
+
+    .header {
+      background: #0a66c2;
+      color: white;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header-icon { font-size: 22px; }
+    .header-title { font-size: 15px; font-weight: 700; }
+    .header-sub { font-size: 11px; opacity: .8; margin-top: 1px; }
+
+    .scan-bar {
+      background: white;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 10px 14px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .scan-btn {
+      flex: 1;
+      padding: 9px 14px;
+      background: #0a66c2;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .scan-btn:hover { background: #004182; }
+    .scan-btn:disabled { background: #9ab5d4; cursor: not-allowed; }
+
+    .clear-btn {
+      padding: 9px 12px;
+      background: transparent;
+      color: #666;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      font-size: 12px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all .2s;
+    }
+    .clear-btn:hover { background: #fee; color: #c00; border-color: #c00; }
+
+    /* Stats */
+    .stats {
+      display: flex;
+      background: white;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .stat {
+      flex: 1;
+      text-align: center;
+      padding: 12px 8px;
+      border-right: 1px solid #e0e0e0;
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .stat-num.red    { color: #d93025; }
+    .stat-num.orange { color: #e8710a; }
+    .stat-num.green  { color: #1a7f37; }
+    .stat-lbl {
+      font-size: 10px;
+      color: #888;
+      margin-top: 3px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+    }
+
+    /* List */
+    .list-header {
+      padding: 10px 14px 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+
+    .recruiter-item {
+      background: white;
+      margin: 0 8px 6px;
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      border: 1px solid #e0e0e0;
+      transition: box-shadow .15s;
+    }
+    .recruiter-item:hover { box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+
+    .rec-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .rec-avatar.high   { background: #fce8e6; color: #b31412; border: 2px solid #d93025; }
+    .rec-avatar.medium { background: #fef0e3; color: #a34b00; border: 2px solid #e8710a; }
+    .rec-avatar.low    { background: #e3f4ea; color: #0d6b2a; border: 2px solid #1a7f37; }
+
+    .rec-info { flex: 1; min-width: 0; }
+    .rec-name {
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .rec-meta { font-size: 11px; color: #888; margin-top: 2px; }
+
+    .rec-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+    .rec-badge.high   { background: #d93025; color: #fff; }
+    .rec-badge.medium { background: #e8710a; color: #fff; }
+    .rec-badge.low    { background: #1a7f37; color: #fff; }
+
+    .empty {
+      text-align: center;
+      padding: 30px 20px;
+      color: #999;
+    }
+    .empty-icon { font-size: 36px; margin-bottom: 10px; }
+    .empty-text { font-size: 13px; line-height: 1.6; }
+
+    .status-msg {
+      font-size: 12px;
+      color: #444;
+      background: #e8f3ff;
+      border: 1px solid #b6d4f7;
+      border-radius: 6px;
+      padding: 6px 10px;
+      flex: 1;
+      display: none;
+    }
+    .status-msg.show { display: block; }
+
+    .bottom-pad { height: 12px; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-icon">🔍</div>
+  <div>
+    <div class="header-title">LinkedIn Fraud Detector</div>
+    <div class="header-sub">Job Scam & Fake Recruiter Shield</div>
+  </div>
+</div>
+
+<div class="scan-bar">
+  <button class="scan-btn" id="scanBtn">🔍 Scan This Page Now</button>
+  <button class="clear-btn" id="clearBtn">🗑 Clear</button>
+</div>
+
+<div id="statusMsg" class="status-msg" style="margin:8px 14px 0;"></div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num red" id="sHigh">0</div><div class="stat-lbl">🚨 High Risk</div></div>
+  <div class="stat"><div class="stat-num orange" id="sMed">0</div><div class="stat-lbl">⚠️ Suspicious</div></div>
+  <div class="stat"><div class="stat-num green" id="sLow">0</div><div class="stat-lbl">✅ Genuine</div></div>
+</div>
+
+<div class="list-header">Tracked Recruiters</div>
+<div id="recruiterList"></div>
+<div class="bottom-pad"></div>
+
+<script src="popup.js"></script>
+</body>
+</html>
