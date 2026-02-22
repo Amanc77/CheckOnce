@@ -19,6 +19,7 @@
 .frd-high   { border-color: #d93025; background: #fdf2f2; }
 .frd-medium { border-color: #e8710a; background: #fef7f0; }
 .frd-low    { border-color: #1a7f37; background: #f0faf4; }
+.frd-fake   { border-color: #d93025; background: #fff5f5; border-width: 3px; box-shadow: 0 0 0 2px rgba(217, 48, 37, 0.2); }
 
 .frd-top {
   display: flex;
@@ -31,6 +32,7 @@
 .frd-high   .frd-top { background: #fce8e6; }
 .frd-medium .frd-top { background: #fef0e3; }
 .frd-low    .frd-top { background: #e3f4ea; }
+.frd-fake   .frd-top { background: #ffebee; border-bottom: 2px solid #d93025; }
 
 .frd-emoji { font-size: 18px; flex-shrink: 0; }
 
@@ -42,6 +44,7 @@
 .frd-high   .frd-label { color: #b31412; }
 .frd-medium .frd-label { color: #a34b00; }
 .frd-low    .frd-label { color: #0d6b2a; }
+.frd-fake   .frd-label { color: #c62828; font-size: 15px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
 
 .frd-pts {
   font-size: 11px;
@@ -106,3 +109,174 @@
   text-decoration: none;
 }
 .frd-link:hover { text-decoration: underline; }
+
+/* Fake post warning section */
+.frd-fake-warning {
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 12px;
+  animation: frdPulse 2s ease-in-out infinite;
+}
+
+@keyframes frdPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.4); }
+  50% { box-shadow: 0 0 0 4px rgba(255, 193, 7, 0); }
+}
+
+.frd-fake-title {
+  font-size: 16px;
+  font-weight: 900;
+  color: #d32f2f;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.frd-fake-message {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.frd-fake-message div {
+  margin: 4px 0;
+}
+
+.frd-fake-message strong {
+  color: #d32f2f;
+  font-weight: 700;
+}
+
+.frd-do-not-apply {
+  background: #d32f2f;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 900;
+  text-align: center;
+  margin-top: 12px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  animation: frdShake 0.5s ease-in-out;
+}
+
+@keyframes frdShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Notifications */
+.frd-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 14px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 100000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: translateX(400px);
+  transition: transform 0.3s ease;
+  max-width: 350px;
+}
+
+.frd-notification-show {
+  transform: translateX(0);
+}
+
+.frd-notification-info {
+  background: #e3f2fd;
+  color: #1976d2;
+  border: 2px solid #2196f3;
+}
+
+.frd-notification-success {
+  background: #e8f5e9;
+  color: #388e3c;
+  border: 2px solid #4caf50;
+}
+
+.frd-notification-error {
+  background: #ffebee;
+  color: #c62828;
+  border: 2px solid #f44336;
+}
+
+/* Instructions overlay */
+#frd-instructions {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#frd-instructions.frd-instructions-show {
+  opacity: 1;
+}
+
+.frd-instructions-content {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 500px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+#frd-instructions.frd-instructions-show .frd-instructions-content {
+  transform: scale(1);
+}
+
+.frd-instructions-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #0a66c2;
+}
+
+.frd-instructions-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.frd-instructions-text kbd {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: monospace;
+  font-size: 12px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.frd-instructions-close {
+  background: #0a66c2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s;
+}
+
+.frd-instructions-close:hover {
+  background: #004182;
+}
